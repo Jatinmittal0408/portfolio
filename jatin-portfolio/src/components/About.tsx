@@ -42,7 +42,7 @@ const About = () => {
         <div className="about-grid">
           <div className="about-image-wrap">
             <div className="about-image-frame">
-              <img src="/images/profile.png" alt="Jatin Mittal" />
+              <img src={`${import.meta.env.BASE_URL}images/profile.png`} alt="Jatin Mittal" />
               <div className="about-image-overlay" />
               <div className="about-tag">DevOps · 3+ Years</div>
             </div>

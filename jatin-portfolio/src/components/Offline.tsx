@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const CARDS = [
   {
-    img: "/images/guitar_raw.jpg",
+    img: `${import.meta.env.BASE_URL}images/guitar_raw.jpg`,
     emoji: "🎸",
     heading: "Audio Orchestration",
     role: "Lead Guitarist",
@@ -15,7 +15,7 @@ const CARDS = [
     tags: ["#LivePerformance", "#RhythmSection"],
   },
   {
-    img: "/images/trekking.jpg",
+    img: `${import.meta.env.BASE_URL}images/trekking.jpg`,
     emoji: "🏔️",
     heading: "High Availability",
     role: "Alpine Trekker",
@@ -23,7 +23,7 @@ const CARDS = [
     tags: ["#Endurance", "#NatureOps"],
   },
   {
-    img: "/images/cooking.jpg",
+    img: `${import.meta.env.BASE_URL}images/cooking.jpg`,
     emoji: "🍳",
     heading: "Flavor Deployment",
     role: "Culinary Artist",

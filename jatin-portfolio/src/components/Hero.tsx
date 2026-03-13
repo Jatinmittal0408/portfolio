@@ -80,7 +80,7 @@ const Hero = () => {
               <a href="#projects" className="btn-primary">
                 See What I've Built <FiArrowRight />
               </a>
-              <a href="/documents/JatinMittal_Devops_Resume.pdf" download="JatinMittal_Devops_Resume.pdf" className="btn-secondary">
+              <a href={`${import.meta.env.BASE_URL}documents/JatinMittal_Devops_Resume.pdf`} download="JatinMittal_Devops_Resume.pdf" className="btn-secondary">
                 <FiDownload /> Download Resume
               </a>
             </div>

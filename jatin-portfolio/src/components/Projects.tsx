@@ -10,7 +10,7 @@ const PROJECTS = [
     status: "Production",
     desc: "Created production-grade hardened golden images using Packer and Ansible with comprehensive security configurations. Achieved Lynis security audit score of 86/100 through systematic hardening including CIS benchmarks, kernel tuning, and automated security policies, deployed across ParkPlus production infrastructure.",
     tags: ["Security", "Lynis", "Packer", "Ansible"],
-    image: "/images/security.jpg",
+    image: `${import.meta.env.BASE_URL}images/security.jpg`,
     metrics: [
       { val: "86/100", lab: "Lynis Score" },
       { val: "135+", lab: "VMs Deployed" },
@@ -26,7 +26,7 @@ const PROJECTS = [
     status: "Active Monitoring",
     desc: "Architected and deployed enterprise-grade Wazuh SIEM solution for ParkPlus without any paid tools. Enabled comprehensive security monitoring, intrusion detection, file integrity monitoring, and compliance auditing across 367 VMs with real-time alerting and response.",
     tags: ["Wazuh", "SIEM", "Security", "Kubernetes"],
-    image: "/images/monitoring.jpg",
+    image: `${import.meta.env.BASE_URL}images/monitoring.jpg`,
     metrics: [
       { val: "367", lab: "VMs Monitored" },
       { val: "$0", lab: "Licensing Cost" },
@@ -42,7 +42,7 @@ const PROJECTS = [
     status: "Cost Savings",
     desc: "Developed automated cost optimization solutions across multiple organizations. For ParkPlus (via Hanu) achieved 36% compute and 28% SQL cost savings through lifecycle policies and right-sizing, and built reusable analysis tooling for other enterprises.",
     tags: ["GCP", "AWS", "Python", "BigQuery"],
-    image: "/images/cost-optimization.jpg",
+    image: `${import.meta.env.BASE_URL}images/cost-optimization.jpg`,
     metrics: [
       { val: "36%", lab: "Compute Savings" },
       { val: "28%", lab: "SQL Savings" },
@@ -58,7 +58,7 @@ const PROJECTS = [
     status: "Infrastructure",
     desc: "Production-grade Terraform modules for GCP powering multi-region GKE clusters, VPC networks, service accounts, and Cloud SQL. Manages 367 VMs across ParkPlus infrastructure with autoscaling from 3–50 nodes per cluster.",
     tags: ["Terraform", "GCP", "GKE", "VPC"],
-    image: "/images/k8s-optimization.jpg",
+    image: `${import.meta.env.BASE_URL}images/k8s-optimization.jpg`,
     metrics: [
       { val: "367", lab: "VMs Managed" },
       { val: "Multi", lab: "Region GKE" },
@@ -74,7 +74,7 @@ const PROJECTS = [
     status: "Reliability",
     desc: "Production observability stack for Kubernetes with Prometheus, Grafana, Alertmanager, and on-call integrations. 12 custom dashboards, 45 alert rules, and tight SLOs monitoring 367 VMs and 15K+ time series.",
     tags: ["Prometheus", "Grafana", "Alertmanager", "PagerDuty"],
-    image: "/images/monitoring.jpg",
+    image: `${import.meta.env.BASE_URL}images/monitoring.jpg`,
     metrics: [
       { val: "15K+", lab: "Time Series" },
       { val: "45", lab: "Alert Rules" },
@@ -90,7 +90,7 @@ const PROJECTS = [
     status: "GitOps",
     desc: "Production GitOps deployment patterns using ArgoCD: app-of-apps, sync waves, blue–green strategies, and automated rollbacks. Manages 45+ apps with more than 50 deployments per day.",
     tags: ["ArgoCD", "GitOps", "Kubernetes", "Helm"],
-    image: "/images/cicd.jpg",
+    image: `${import.meta.env.BASE_URL}images/cicd.jpg`,
     metrics: [
       { val: "45+", lab: "Apps Managed" },
       { val: "50+", lab: "Deploys/Day" },
@@ -106,7 +106,7 @@ const PROJECTS = [
     status: "Pipeline",
     desc: "Production-ready CI/CD pipelines for Kubernetes microservices using GitHub Actions, Helm, and Docker. Includes automated testing, security scanning with Trivy/Snyk, progressive delivery, and automatic rollbacks with a 99.2% success rate.",
     tags: ["GitHub Actions", "Helm", "Docker", "Trivy"],
-    image: "/images/migration.jpg",
+    image: `${import.meta.env.BASE_URL}images/migration.jpg`,
     metrics: [
       { val: "50+", lab: "Deploys/Day" },
       { val: "4.5min", lab: "Avg Deploy Time" },
