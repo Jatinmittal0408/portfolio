@@ -3,107 +3,6 @@
 // Particle System, Animations, & Interactions
 // ============================================
 
-// Terminal Input Handling
-document.addEventListener('DOMContentLoaded', () => {
-    const terminalInput = document.getElementById('terminalInput');
-    if (terminalInput) {
-        terminalInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                const message = this.value;
-                const email = 'mittaljatin9090@gmail.com';
-                const subject = 'Connect: Portfolio Inquiry';
-                const body = encodeURIComponent(message);
-
-                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-
-                // Visual feedback
-                const parent = this.parentElement;
-                const feedback = document.createElement('div');
-                feedback.className = 'terminal-line';
-                feedback.innerHTML = `<span class="terminal-prompt">></span> Opening mail client...`;
-                parent.parentNode.insertBefore(feedback, parent.nextSibling);
-
-                this.value = '';
-            }
-        });
-    }
-});
-
-// ----- Particle Background System -----
-class ParticleSystem {
-    constructor() {
-        this.canvas = document.getElementById('particles-canvas');
-        this.ctx = this.canvas.getContext('2d');
-        this.particles = [];
-        this.particleCount = 80;
-        this.connectionDistance = 150;
-
-        this.init();
-        this.animate();
-
-        window.addEventListener('resize', () => this.init());
-    }
-
-    init() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        this.particles = [];
-
-        for (let i = 0; i < this.particleCount; i++) {
-            this.particles.push({
-                x: Math.random() * this.canvas.width,
-                y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                radius: Math.random() * 2 + 1
-            });
-        }
-    }
-
-    animate() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        // Update and draw particles
-        this.particles.forEach((particle, i) => {
-            // Update position
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-
-            // Bounce off edges
-            if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
-            if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
-
-            // Draw particle
-            this.ctx.beginPath();
-            this.ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-            this.ctx.fillStyle = 'rgba(0, 217, 255, 0.5)';
-            this.ctx.fill();
-
-            // Draw connections
-            for (let j = i + 1; j < this.particles.length; j++) {
-                const dx = particle.x - this.particles[j].x;
-                const dy = particle.y - this.particles[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < this.connectionDistance) {
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(particle.x, particle.y);
-                    this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
-                    const opacity = (1 - distance / this.connectionDistance) * 0.3;
-                    this.ctx.strokeStyle = `rgba(0, 217, 255, ${opacity})`;
-                    this.ctx.lineWidth = 1;
-                    this.ctx.stroke();
-                }
-            }
-        });
-
-        requestAnimationFrame(() => this.animate());
-    }
-}
-
-// ----- Typing Animation -----
-
-
 // ----- Navigation Functionality -----
 class Navigation {
     constructor() {
@@ -164,8 +63,10 @@ class Navigation {
 
         this.navLinks.forEach(link => {
             link.classList.remove('active');
+            link.removeAttribute('aria-current');
             if (link.getAttribute('href') === `#${current}`) {
                 link.classList.add('active');
+                link.setAttribute('aria-current', 'page');
             }
         });
     }
@@ -197,58 +98,18 @@ class ScrollAnimations {
     }
 }
 
-// ----- Project Filtering -----
-class ProjectFilter {
-    constructor() {
-        this.filterButtons = document.querySelectorAll('.filter-btn');
-        this.projectCards = document.querySelectorAll('.project-card');
-
-        this.init();
-    }
-
-    init() {
-        this.filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const filter = button.getAttribute('data-filter');
-
-                // Update active button
-                this.filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                // Filter projects
-                this.projectCards.forEach(card => {
-                    const category = card.getAttribute('data-category');
-
-                    if (filter === 'all' || category === filter) {
-                        card.style.display = 'block';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'scale(1)';
-                        }, 10);
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'scale(0.8)';
-                        setTimeout(() => {
-                            card.style.display = 'none';
-                        }, 300);
-                    }
-                });
-            });
-        });
-    }
-}
-
 // ----- Image Fallback Handler -----
 class ImageHandler {
     constructor() {
         this.images = [
             { id: 'profileImage', placeholder: '👨‍💻' },
+            { id: 'goldenImage', placeholder: '🔐' },
+            { id: 'wazuhImage', placeholder: '🛡️' },
             { id: 'costOptImage', placeholder: '💰' },
-            { id: 'k8sOptImage', placeholder: '☸️' },
-            { id: 'securityImage', placeholder: '🔐' },
-            { id: 'migrationImage', placeholder: '☁️' },
-            { id: 'cicdImage', placeholder: '🚀' },
-            { id: 'monitoringImage', placeholder: '📊' }
+            { id: 'terraformImage', placeholder: '☸️' },
+            { id: 'argocdImage', placeholder: '🚀' },
+            { id: 'cicdImage', placeholder: '⚙️' },
+            { id: 'k8sMonitoringImage', placeholder: '📊' }
         ];
 
         this.init();
@@ -282,17 +143,11 @@ class ImageHandler {
 
 // ----- Initialize Everything -----
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize particle system
-    new ParticleSystem();
-
     // Initialize navigation
     new Navigation();
 
     // Initialize scroll animations
     new ScrollAnimations();
-
-    // Initialize project filter
-    new ProjectFilter();
 
     // Initialize image handlers
     new ImageHandler();
@@ -324,11 +179,17 @@ function debounce(func, wait) {
     };
 }
 
-// ----- Add Loading Animation -----
+// ----- Intro Overlay & Loading -----
 window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
+    const overlay = document.getElementById('intro-overlay');
+
+    if (overlay) {
+        setTimeout(() => {
+            overlay.classList.add('intro-hidden');
+        }, 900);
+
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 1800);
+    }
 });

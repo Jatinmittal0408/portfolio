@@ -74,6 +74,47 @@ body {
     position: relative;
 }
 
+/* ----- Intro Overlay (Netflix-style launch) ----- */
+#intro-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 20% 0%, #0ea5e9 0, transparent 55%),
+        radial-gradient(circle at 80% 100%, #38bdf8 0, transparent 55%),
+        #020617;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    pointer-events: none;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+#intro-overlay.intro-hidden {
+    opacity: 0;
+    transform: scale(1.02);
+}
+
+.intro-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    font-family: var(--font-mono);
+}
+
+.intro-mark {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent-primary);
+}
+
+.intro-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
 /* Grain Texture Overlay for Subtle Depth */
 body::before {
     content: '';
@@ -159,7 +200,6 @@ a:hover {
 }
 
 section {
-    min-height: 100vh;
     padding: var(--spacing-3xl) 0;
     position: relative;
     z-index: 2;
@@ -257,18 +297,32 @@ section {
     transition: var(--transition-normal);
 }
 
-/* ----- Hero Section (Asymmetric, Minimal) ----- */
+/* ----- Hero Section (Asymmetric, Minimal + Depth) ----- */
 #hero {
     display: flex;
     align-items: center;
     min-height: 100vh;
     position: relative;
     padding-top: 80px;
+    overflow: hidden;
 }
 
 .hero-content {
     max-width: 900px;
     z-index: 10;
+}
+
+#hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 0% 0%, rgba(14, 165, 233, 0.18), transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.16), transparent 55%);
+    opacity: 0.9;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .hero-label {
@@ -620,36 +674,38 @@ section {
     background: var(--bg-primary);
 }
 
-.project-filters {
-    display: flex;
-    gap: var(--spacing-sm);
+.project-row {
     margin-bottom: var(--spacing-2xl);
-    flex-wrap: wrap;
 }
 
-.filter-btn {
-    background: transparent;
-    border: 1px solid var(--border-subtle);
-    padding: 0.5rem 1.25rem;
-    border-radius: 50px;
-    color: var(--text-secondary);
+.project-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--spacing-md);
+    gap: var(--spacing-md);
+}
+
+.project-row-title {
     font-size: 0.9rem;
-    cursor: pointer;
-    transition: var(--transition-fast);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
 }
 
-.filter-btn.active,
-.filter-btn:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    background: rgba(14, 165, 233, 0.05);
+.project-row-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    max-width: 360px;
 }
 
-/* Asymmetric Grid */
 .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    display: flex;
     gap: var(--spacing-lg);
+    overflow-x: auto;
+    padding-bottom: var(--spacing-md);
+    scroll-snap-type: x mandatory;
 }
 
 /* Dashboard Card Style */
@@ -657,17 +713,17 @@ section {
     background: var(--bg-secondary);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
-    /* More squared off */
     overflow: hidden;
     transition: var(--transition-normal);
     position: relative;
     display: flex;
     flex-direction: column;
+    min-width: 320px;
+    scroll-snap-align: start;
 }
 
 .project-card:hover {
     border-color: var(--accent-primary);
-    transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
 }
 
@@ -1072,7 +1128,6 @@ section {
 }
 
 .offline-card:hover {
-    transform: translateY(-5px);
     border-color: var(--accent-steel);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
@@ -1201,6 +1256,16 @@ footer {
 
     .nav-menu.active {
         display: flex;
+    }
+}
+
+/* ----- Reduced Motion Support ----- */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
     }
 }
 
